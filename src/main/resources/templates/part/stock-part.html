@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title></title>
+		<!-- Bootstrap core CSS -->
+<!--		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/dashboard.css" rel="stylesheet">
+		<script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+		<!--<link rel="stylesheet" href="./css/font.css">
+		<link rel="stylesheet" href="./css/xadmin.css">
+		<script src="./lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="./js/xadmin.js"></script>
+		<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>-->
+
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+			body {
+				margin-left: -200px;
+				margin-top: 10px;
+			}
+			#title {
+				/*border: 1px solid red;*/
+				width: 100%;
+				height: 41px;
+				margin-left: -1px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<div class="table-responsive">
+						<div id="title">
+							<img src="images/stock_title.jpg" alt="">
+						</div>
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>名称</th>
+									<th>单价</th>
+									<th>库存</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="allPart:${allPart}">
+									<th th:text="${allPart.getPart_name()}"></th>
+									<th th:text="${allPart.getPart_price()}"></th>
+									<th class="count"><span th:text="${allPart.getPart_num()}"></span></th>
+									<th>
+										<button class="btn btn-sm btn-primary" onclick="usePart(this)" th:value="${allPart.getPart_num()}" th:name="${allPart.getPart_id()}">使用</button>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!--<script type="text/javascript" src="./js/jquery-3.2.1.slim.min.js"></script>-->
+		<script type="text/javascript" src="./js/popper.min.js"></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="./js/feather.min.js"></script>
+		<script>
+
+			function usePart(obj) {
+				console.log($(obj));
+				var value = $(obj).attr('value');
+				var count = parseInt(value);
+				if(count > 1){
+					count -= 1;
+					$(obj).parents("tr").find(".count").find('span').html(count);
+					$(obj).attr('value',count);
+					$.ajax({
+						url: '/subPart',
+						type: 'get',
+						data: {count:count,name:$(obj).attr('name')}
+					})
+				}else{
+					$(obj).parents("tr").remove();
+					$.ajax({
+						url: '/delPart',
+						type: 'get',
+						data: {name:$(obj).attr('name')}
+					})
+				}
+
+			}
+
+		</script>
+	</body>
+
+</html>

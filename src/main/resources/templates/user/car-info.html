@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title></title>
+		<!-- Bootstrap core CSS -->
+<!--		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/dashboard.css" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+			body {
+				margin-left: -200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>车牌号</th>
+									<th>品牌</th>
+									<th>型号</th>
+									<th>颜色</th>
+									<th>价格</th>
+									<th>购买日期</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="carInfo:${carInfo}">
+									<th th:text="${carInfo.getCar_id()}"></th>
+									<th th:text="${carInfo.getCar_brand()}"></th>
+									<th th:text="${carInfo.getCar_model()}"></th>
+									<th th:text="${carInfo.getCar_color()}"></th>
+									<th th:text="${carInfo.getCar_price()}"></th>
+									<th th:text="${carInfo.getCar_time()}"></th>
+									<th>
+										<a class="btn btn-sm btn-primary" th:href="@{/updCarInfo/}+${carInfo.getId()}">修改</a>
+										<a class="btn btn-sm btn-danger" th:href="@{/delCarInfo/}+${carInfo.getId()}">删除</a>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="./js/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="./js/popper.min.js"></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="./js/feather.min.js"></script>
+		<script>
+			feather.replace()
+		</script>
+		<!--<script type="text/javascript">
+			function member_del(obj,id){
+				layer.confirm('确认要删除吗？',function(index){
+					//发异步删除数据
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:1000});
+					alert($(obj)[0].name);
+					$.ajax({
+						url: '/deleteCarInfo',
+						type: 'post',
+						data: {name:$(obj)[0].name}
+					})
+				});
+			}
+		</script>-->
+	</body>
+
+</html>

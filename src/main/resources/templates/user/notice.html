@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    #text {
+      margin-top: 50px;
+      width: 100%;
+      height: 100%;
+    }
+    #text p{
+      font-size: 20px;
+      text-align: center;
+
+    }
+    #price{
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="text">
+    <p>交通运输部办公厅关于印发《汽车维修技术信息公开备案工作指南（暂行）》的通知</p>
+  </div>
+  <div id="price" th:if="${userPrice<50}">
+    <p>当前余额不足50，请尽快充值</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title></title>
+		<!-- Bootstrap core CSS -->
+<!--		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/dashboard.css" rel="stylesheet">
+		<script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+		<!--<link rel="stylesheet" href="./css/font.css">
+		<link rel="stylesheet" href="./css/xadmin.css">
+		<script src="./lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="./js/xadmin.js"></script>
+		<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>-->
+
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+			body {
+				margin-left: -200px;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>服务码</th>
+									<th>故障&服务名称</th>
+									<th>服务价格</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="faults:${faults}">
+									<th th:text="${faults.getFault_id()}"></th>
+									<th th:text="${faults.getFault_name()}"></th>
+									<th th:text="${faults.getFault_price()}"></th>
+									<th><span id="text" th:text="${faults.getFault_state()}"></span></th>
+									<th>
+										<button class="btn btn-sm btn-primary" onclick="str1(this)" th:name="${faults.getFault_id()}" title="启用">启用</button>
+										<button class="btn btn-sm btn-danger" onclick="str2(this)" th:name="${faults.getFault_id()}" title="已停用">停用</button>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!--<script type="text/javascript" src="./js/jquery-3.2.1.slim.min.js"></script>-->
+		<script type="text/javascript" src="./js/popper.min.js"></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="./js/feather.min.js"></script>
+		<script>
+
+			function str1(obj) {
+				var cont = $("#text");
+				var state = $(obj).attr('title');
+				var name = $(obj).attr('name');
+				alert(name);
+				alert(state);
+				document.getElementById("text").innerHTML="启用";
+				$.ajax({
+					url: '/faultState',
+					type: 'POST',
+					data: {state:state,name:name}
+				})
+			}
+
+			function str2(obj) {
+				var cont = $("#text");
+				var state = $(obj).attr('title');
+				var name = $(obj).attr('name');
+				document.getElementById("text").innerHTML="已停用";
+				$.ajax({
+					url: '/faultState',
+					type: 'POST',
+					data: {state:state,name:name}
+				})
+			}
+
+		</script>
+	</body>
+
+</html>

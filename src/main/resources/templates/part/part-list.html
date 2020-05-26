@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title></title>
+		<!-- Bootstrap core CSS -->
+<!--		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/dashboard.css" rel="stylesheet">
+		<script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+		<!--<link rel="stylesheet" href="./css/font.css">
+		<link rel="stylesheet" href="./css/xadmin.css">
+		<script src="./lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="./js/xadmin.js"></script>
+		<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+		<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>-->
+
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+			body {
+				margin-left: -200px;
+				margin-top: 10px;
+			}
+			#title {
+				/*border: 1px solid red;*/
+				width: 100%;
+				height: 41px;
+				margin-left: -1px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<div class="table-responsive">
+						<div id="title">
+							<img src="images/part_title.jpg" alt="">
+						</div>
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>名称</th>
+									<th>图片</th>
+									<th>单价</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>轮胎</th>
+									<th><img src="images/tyre.jpg" alt="轮胎"></th>
+									<th>￥200.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(1)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>方向盘</th>
+									<th><img src="images/steering.jpg" alt="方向盘"></th>
+									<th>￥150.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(2)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>仪表盘</th>
+									<th><img src="images/panel.jpg" alt="仪表盘"></th>
+									<th>￥100.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(3)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>变档杆</th>
+									<th><img src="images/lever.jpg" alt="变档杆"></th>
+									<th>￥100.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(4)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>齿轮</th>
+									<th><img src="images/gear.jpg" alt="齿轮"></th>
+									<th>￥50.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(5)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>发动机</th>
+									<th><img src="images/engine.jpg" alt="发动机"></th>
+									<th>￥1500.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(6)">购买</button>
+									</th>
+								</tr>
+								<tr>
+									<th>挡风玻璃</th>
+									<th><img src="images/winds.jpg" alt="挡风玻璃"></th>
+									<th>￥200.0</th>
+									<th>
+										<button class="btn btn-sm btn-primary" title="购买" onclick="buyPart(7)">购买</button>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!--<script type="text/javascript" src="./js/jquery-3.2.1.slim.min.js"></script>-->
+		<script type="text/javascript" src="./js/popper.min.js"></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="./js/feather.min.js"></script>
+		<script>
+
+			function buyPart(i) {
+				if(i == 1){
+					var name = "轮胎";
+					var price = 200;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else if(i ==2){
+					var name = "方向盘";
+					var price = 150;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else if(i ==3){
+					var name = "仪表盘";
+					var price = 100;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else if(i ==4){
+					var name = "变档杆";
+					var price = 100;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else if(i ==5){
+					var name = "齿轮";
+					var price = 50;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else if(i ==6){
+					var name = "发动机";
+					var price = 1500;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}else {
+					var name = "挡风玻璃";
+					var price = 200;
+					$.ajax({
+						url: '/buyParts',
+						type: 'get',
+						data: {name:name,price:price}
+					})
+				}
+			}
+
+		</script>
+	</body>
+
+</html>
